@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+  <h2>{{ group.title }}</h2>
+  <p>{{ group.description }}</p>
+  <p>Owner: {{ group.owner }}</p>
+      {% if user == group.owner %}
+        <a href="{% url 'edit_group' group.id %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'delete_group' group.id %}" class="btn btn-danger btn-sm">Delete</a>
+        {% elif joined %}
+          <a href="{% url 'leave_group' group.id %}" class="btn btn-warning">Leave Group</a>
+        {% else %}
+          <a href="{% url 'join_group' group.id %}" class="btn btn-success">Join</a>
+      {% endif %}
+
+    </div>
+    <hr>
+    <h2>Events</h2>
+    {% if user == group.owner %}
+      <a href="{% url 'new_event' group_id=group.id %}" class="btn btn-danger">Create Event</a>
+    {% endif %}
+    {% for event in events %}
+      <div></div>
+      <a href="{% url 'event_detail' group_id=group.id event_id=event.id %}" class="btn btn-primary">{{ event.name }}</a>
+    {% endfor %}
+    <hr>
+    <h2>Members</h2>
+    {% if members %}
+      {% for member in members %}
+      <div>{{ member.username }}</div>
+      {% endfor %}
+    {% else %}
+      <h4>No members yet</h4>
+    {% endif %}
+{% endblock %}

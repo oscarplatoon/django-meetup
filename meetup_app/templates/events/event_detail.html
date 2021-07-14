@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div>
+    <p>Title: <b>{{ event.name }}</b></p>
+    <p>Description: {{ event.description }}</p>
+    <p>Date: {{ event.date }}</p>
+    <img src="{{ event.image_url }}" alt="Girl in a jacket" width="500" height="600">
+    <p>{{ event.group_id }}</p>
+    {% if user == event.group.owner %}
+      <a href="{% url 'edit_event' group_id=event.group_id event_id=event.id %}" class="btn btn-primary">Edit</a>
+      <a href="{% url 'delete_event' group_id=event.group_id event_id=event.id %}" class="btn btn-danger btn-sm">Delete</a>
+    {% endif %}
+  </div>
+{% endblock %}
