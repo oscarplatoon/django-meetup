@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2 class="m-5">All Groups</h2>
+    {% for group in all_groups %}
+      {% if group.owner != user %}
+        <div class="mx-5">
+          <a href="{% url 'group_detail' group.id%}"><p class="mx-5">{{ group.title}}</p></a>
+        </div>
+      {% endif %}
+    {% endfor %}
+    {% if user.is_authenticated %}
+      <hr>
+      <div>
+        <h2 class="m-5">{{ user.username }} Groups</h2>
+      </div>
+      {% for group in all_groups %}
+        {% if group.owner == user %}
+          <div class="mx-5">
+            <a href="{% url 'group_detail' group.id%}"><p class="mx-5">{{ group.title}}</p></a>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+{% endblock %}

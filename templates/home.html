@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    Hi {{ user.username }}!
+
+  {% else %}
+    <div class="card m-5" style="width: 50%;">
+      <img class="card-img-top" src="https://www.codeplatoon.org/wp-content/uploads/2020/05/LimaPlatoon.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">You are not logged in.</h5>
+        <p class="card-text">...</p>
+        <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Login</a>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
